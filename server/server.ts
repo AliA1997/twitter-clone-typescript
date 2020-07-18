@@ -31,6 +31,8 @@ const cookieOptions = {
 };
 var newsApiKey: string = "29f1e284053e4529a0918faf53d9808f";
 
+app.use( express.static( `${__dirname}/../build` ) );
+
 createConnection({
     "type": "mysql",
     "host": "localhost",
@@ -113,7 +115,7 @@ app.use(async (req, res, next) => {
 app.use(errorHandler({
     debug: process.env.ENV !== 'prod',
     log: true
-}))
+}));
 
 // user
 userController();
@@ -126,6 +128,12 @@ responseController();
 // messages
 // app.post('/api/messages', postMessages);
 // app.put('/api/messages/:id', putMessage);
+
+const path = require('path'); // Usually moved to the start of file
+
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 // tslint:disable-next-line:no-console
 app.listen(port, () => console.log(`Listening on port ${port}`));
