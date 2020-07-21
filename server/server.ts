@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import express from 'express';
 import session from 'express-session';
@@ -13,15 +14,16 @@ import TopicSeeder from './seeders/TopicSeeder';
 import userController from './controllers/userController';
 import rantController from './controllers/rantController';
 import responseController from './controllers/responseController';
-import 'reflect-metadata';
 import { TypeormStore } from 'connect-typeorm/out';
+import 'reflect-metadata';
+dotenv.config();
 // import * as typeOrmConfig from './ormconfig.json';
 // const ormConfig = require('./ormconfig.json')
 // import { postMessages, putMessage } from './routes/messages';
 // import { getUser } from './routes/users';
-
 export const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 7000;
+
 const cookieOptions = {
     secret: "Rant Secret",
     resave: false,
@@ -32,14 +34,14 @@ const cookieOptions = {
 var newsApiKey: string = "29f1e284053e4529a0918faf53d9808f";
 
 app.use( express.static( `${__dirname}/../build` ) );
-
+console.log("process.env:", process.env);
 createConnection({
     "type": "mysql",
-    "host": "localhost",
-    "port": 3306,
-    "username": "root",
-    "password": "root",
-    "database": "rant",
+    "host": process.env.DB_HOST,
+    "port": parseInt(process.env.DB_PORT),
+    "username": process.env.DB_USERNAME,
+    "password": process.env.DB_PASSWORD,
+    "database": process.env.DB_SCHEMA,
     "synchronize": true,
     "logging": true,
     "entities": [
