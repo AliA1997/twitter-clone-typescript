@@ -18,11 +18,10 @@ import responseController from './controllers/responseController';
 import { TypeormStore } from 'connect-typeorm/out';
 import 'reflect-metadata';
 
-var envPath: any = process.env.NODE_ENV === 'development' ? path.join(__dirname, '.env') : path.join(__dirname, '.env.prod');
+var envPath: any = process.env.NODE_ENV === 'production' ? path.join(__dirname, '.env.prod') : path.join(__dirname, '.env');
 dotenv.config({path: envPath}) 
 export const app = express();
 const port = process.env.PORT || 7000;
-
 const cookieOptions = {
     secret: "Rant Secret",
     resave: false,

@@ -38,6 +38,7 @@
     "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
     "strong-error-handler": "^3.5.0",
+    "ts-node": "^8.10.2",
     "ts-node-dev": "^1.0.0-pre.49",
     "typeorm": "^0.2.25",
     "typescript": "~3.7.2"
