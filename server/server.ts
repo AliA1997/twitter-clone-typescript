@@ -18,7 +18,7 @@ import responseController from './controllers/responseController';
 import { TypeormStore } from 'connect-typeorm/out';
 import 'reflect-metadata';
 
-var envPath: any = path.join(__dirname, '.env');
+var envPath: any = process.env.NODE_ENV === 'development' ? path.join(__dirname, '.env') : path.join(__dirname, '.env.prod');
 dotenv.config({path: envPath}) 
 export const app = express();
 const port = process.env.PORT || 7000;
@@ -31,7 +31,6 @@ const cookieOptions = {
     store: null
 };
 var newsApiKey: string = "29f1e284053e4529a0918faf53d9808f";
-
 app.use( express.static( `${__dirname}/../build` ) );
 createConnection({
     "type": "mysql",

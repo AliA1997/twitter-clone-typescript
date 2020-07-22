@@ -2,8 +2,7 @@
   "name": "twitter-clone-typescript",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000/",
-  "type": "module",
+  "proxy": "http://localhost:7000/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
