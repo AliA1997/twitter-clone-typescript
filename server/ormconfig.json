@@ -8,7 +8,8 @@
     "synchronize": true,
     "logging": true,
     "entities": [
-       "models/**/*.ts"
+      "models/**/*.ts",
+      "Entity.ts"
     ],
     "migrations": [
        "migrations/**/*.ts"

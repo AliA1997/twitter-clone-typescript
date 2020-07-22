@@ -3,6 +3,12 @@ import { Rant } from '../models/rants/Rant';
 import { LkResponseType } from '../models/rants/LkResponseType';
 import { User } from '../models/user/User';
 
+export interface IRantSeeder {
+    Seed: Function;
+    req: any;
+    ormService?: any;
+}
+
 function RantSeeder(req) {
     this.req = req;
     this.ormService = null;
@@ -23,7 +29,10 @@ RantSeeder.prototype.Seed = async function(){
                         id: Math.floor(Math.random() * 100),
                         body: `Test Rant: ${userIdx + 1}`,
                         user_id: user.id,
-                        number_of_responses: 0,
+                        number_of_likes: 0,
+                        number_of_replies: 0,
+                        number_of_rerants: 0,
+                        number_of_shares: 0,
                         date_created: new Date(),
                         date_updated: null,
                         date_deleted: null

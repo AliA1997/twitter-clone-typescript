@@ -1,6 +1,11 @@
 import OrmService from '../OrmService';
 import { User } from '../models/user/User';
  
+export interface IUserSeeder {
+    Seed: Function;
+    req: any;
+    ormService?: any;
+}
 
 function UserSeeder(req) {
     this.req = req;
@@ -20,6 +25,7 @@ UserSeeder.prototype.Seed = async function() {
         age: 23, 
         birth_place: 'Los Angeles, CA',
         email: 'devmtnali@gmail.com',
+        username: 'devmtnali',
         phone_number: '813-405-5375',
         rants: null,
         id: 1,
@@ -36,6 +42,7 @@ UserSeeder.prototype.Seed = async function() {
         age: 59, 
         birth_place: 'Santa Monica, CA',
         email: 'aabiz1997@gmail.com',
+        username: 'aabiz1997',
         phone_number: '000-000-0000',
         rants: null,
         id: 2,
@@ -52,6 +59,7 @@ UserSeeder.prototype.Seed = async function() {
         age: 22, 
         birth_place: 'Corona, CA',
         email: 'gary@gmail.com',
+        username: 'gary',
         phone_number: '111-222-3456',
         rants: null,
         id: 3,
@@ -68,6 +76,7 @@ UserSeeder.prototype.Seed = async function() {
         age: 26, 
         birth_place: 'Chicago, IL',
         email: 'larry@gmail.com',
+        username: 'larry',
         phone_number: '642-231-5356',
         rants: null,
         id: 4,
@@ -84,6 +93,7 @@ UserSeeder.prototype.Seed = async function() {
         age: 53, 
         birth_place: 'Seattle, WA',
         email: 'louis@gmail.com',
+        username: 'louis',
         phone_number: '642-432-3234',
         rants: null,
         id: 5,

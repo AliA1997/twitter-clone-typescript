@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import path from 'path';
 import bodyParser from 'body-parser';
 import express from 'express';
 import session from 'express-session';
@@ -16,11 +17,9 @@ import rantController from './controllers/rantController';
 import responseController from './controllers/responseController';
 import { TypeormStore } from 'connect-typeorm/out';
 import 'reflect-metadata';
-dotenv.config();
-// import * as typeOrmConfig from './ormconfig.json';
-// const ormConfig = require('./ormconfig.json')
-// import { postMessages, putMessage } from './routes/messages';
-// import { getUser } from './routes/users';
+
+var envPath: any = path.join(__dirname, '.env');
+dotenv.config({path: envPath}) 
 export const app = express();
 const port = process.env.PORT || 7000;
 
@@ -34,19 +33,18 @@ const cookieOptions = {
 var newsApiKey: string = "29f1e284053e4529a0918faf53d9808f";
 
 app.use( express.static( `${__dirname}/../build` ) );
-console.log("process.env:", process.env);
 createConnection({
     "type": "mysql",
     "host": process.env.DB_HOST,
-    "port": parseInt(process.env.DB_PORT),
+    "port": process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306,
     "username": process.env.DB_USERNAME,
     "password": process.env.DB_PASSWORD,
     "database": process.env.DB_SCHEMA,
     "synchronize": true,
     "logging": true,
     "entities": [
-    "models/**/*.ts",
-    "Entity.ts"
+        "models/**/*.ts",
+        "Entity.ts"
     ],
     "migrations": [
     "migrations/**/*.ts"
@@ -57,15 +55,14 @@ createConnection({
 })
 .then(async database => {
     app.set('db', database);
-    const sessionRepo = getRepository(Session);
-    app.set('sessionRepo', sessionRepo);
 })
 .catch(error => {
     console.log("Connect to database error.....", error);
 });
 
 app.use((req, res, next) => {
-    const sessionRepo = app.get('sessionRepo');
+    const sessionRepo = getRepository(Session);
+    app.set('sessionRepo', sessionRepo);
     cookieOptions.store = new TypeormStore({
         cleanupLimit: 2,
         limitSubquery: false,
@@ -130,8 +127,6 @@ responseController();
 // messages
 // app.post('/api/messages', postMessages);
 // app.put('/api/messages/:id', putMessage);
-
-const path = require('path'); // Usually moved to the start of file
 
 app.get('*', (req, res)=>{
     res.sendFile(path.join(__dirname, '../build/index.html'));

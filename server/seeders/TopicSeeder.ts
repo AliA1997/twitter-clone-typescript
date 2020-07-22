@@ -7,6 +7,12 @@ import { LkSubTopicType } from '../models/topics/LkSubTopicType';
 import { addDays } from 'date-fns';
 import axios from 'axios';
 
+export interface ITopicSeeder {
+    Seed: Function;
+    req: any;
+    ormService?: any;
+}
+
 function TopicSeeder(req){
     this.req = req;
     this.ormService = null;
