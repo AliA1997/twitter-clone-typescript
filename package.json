@@ -45,7 +45,7 @@
   },
   "scripts": {
     "start": "run-p --race start:server start:app",
-    "start:server": "cd server && ts-node-dev --respawn --transpileOnly ./server.ts && wait-on tcp:5000",
+    "start:server": "cd server && ts-node-dev --respawn --transpileOnly ./server.ts && wait-on tcp:7000",
     "start:app": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
